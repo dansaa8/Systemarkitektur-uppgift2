@@ -1,4 +1,4 @@
-package org.example.entities;
+package com.example.systemarkitekturuppgift2.entities;
 
 import java.time.LocalDate;
 import java.util.*;

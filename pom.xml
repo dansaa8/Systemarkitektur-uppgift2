@@ -25,6 +25,7 @@
             <artifactId>resteasy-jackson-provider</artifactId>
             <version>3.15.6.Final</version>
         </dependency>
+
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -68,6 +69,30 @@
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
+        <!-- Core Jackson dependencies -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.12.4</version> <!-- Use the latest version available -->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.4</version> <!-- Use the latest version available -->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.4</version> <!-- Use the latest version available -->
+        </dependency>
+
+        <!-- Optional Jackson module for Java 8 date/time types -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.12.4</version> <!-- Use the latest version available -->
+        </dependency>
+
     </dependencies>
 
     <build>

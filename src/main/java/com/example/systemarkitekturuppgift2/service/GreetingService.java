@@ -1,4 +1,4 @@
-package com.example.systemarkitekturuppgift2;
+package com.example.systemarkitekturuppgift2.service;
 
 public interface GreetingService {
 

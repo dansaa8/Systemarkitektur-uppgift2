@@ -1,8 +1,8 @@
-package org.example.entities;
+package com.example.systemarkitekturuppgift2.entities;
 
-import org.example.entities.Category;
-import org.example.entities.Product;
-import org.example.entities.ProductRecord;
+import com.example.systemarkitekturuppgift2.entities.Category;
+import com.example.systemarkitekturuppgift2.entities.Product;
+import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

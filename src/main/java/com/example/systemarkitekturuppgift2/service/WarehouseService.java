@@ -1,7 +1,7 @@
-package com.example.systemarkitekturuppgift2;
+package com.example.systemarkitekturuppgift2.service;
 
-import org.example.entities.Category;
-import org.example.entities.ProductRecord;
+import com.example.systemarkitekturuppgift2.entities.Category;
+import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 
 import java.time.LocalDate;
 import java.util.List;

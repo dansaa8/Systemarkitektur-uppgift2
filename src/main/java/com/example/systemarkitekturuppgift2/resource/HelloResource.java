@@ -1,26 +1,27 @@
-package com.example.systemarkitekturuppgift2;
+package com.example.systemarkitekturuppgift2.resource;
 
+import com.example.systemarkitekturuppgift2.service.GreetingService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.entities.Category;
-import org.example.entities.Product;
+import com.example.systemarkitekturuppgift2.entities.Category;
+import com.example.systemarkitekturuppgift2.entities.Product;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Path("")
-public class ProductResource {
+@Path("/hello")
+public class HelloResource {
 
     private GreetingService greetingService;
 
-    public ProductResource(){}; //måste ha, även om vi inte ska använda.
+    public HelloResource(){}; //måste ha, även om vi inte ska använda.
 
     //constructor injection.
     // i testmiljö kan är constructor injection bättre.
     @Inject
-    public ProductResource(GreetingService greetingService) {
+    public HelloResource(GreetingService greetingService) {
         this.greetingService = greetingService;
     }
 

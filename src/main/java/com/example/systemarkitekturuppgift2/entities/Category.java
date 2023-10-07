@@ -1,4 +1,4 @@
-package org.example.entities;
+package com.example.systemarkitekturuppgift2.entities;
 
 public enum Category {
     COMPUTERS,

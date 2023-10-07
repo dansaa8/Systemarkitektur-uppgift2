@@ -1,6 +1,8 @@
-package org.example.service;
+package com.example.systemarkitekturuppgift2.service;
 
-import org.example.entities.*;
+import com.example.systemarkitekturuppgift2.entities.Category;
+import com.example.systemarkitekturuppgift2.entities.Product;
+import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -9,8 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-final class Queries {
-    private Queries(){};
+final class ProductGetter {
+    private ProductGetter(){};
 
     static List<ProductRecord> findProductsByCategory(List<Product> products, Category category) {
         return products.stream()

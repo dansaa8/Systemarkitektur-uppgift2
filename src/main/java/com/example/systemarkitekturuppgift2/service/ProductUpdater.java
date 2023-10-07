@@ -1,14 +1,15 @@
-package org.example.service;
+package com.example.systemarkitekturuppgift2.service;
 
-import org.example.entities.Product;
-import org.example.entities.ProductRecord;
+import com.example.systemarkitekturuppgift2.entities.Product;
+import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.example.entities.FieldValidator.isValid;
+import static com.example.systemarkitekturuppgift2.util.ProductValidation.alreadyExists;
+import static com.example.systemarkitekturuppgift2.util.ProductValidation.isValid;
 
-public class ListUpdater {
+public class ProductUpdater {
 
     static boolean updateProduct(List<Product> pList, ProductRecord p) {
         if (!isValid(p))
@@ -33,25 +34,10 @@ public class ListUpdater {
     }
 
     static boolean insertIntoList(List<Product> pList, ProductRecord p) {
-        if (isValid(p) && !nameExists(pList, p) && !idExists(pList, p)) {
+        if (isValid(p) && !alreadyExists(pList, p)) {
             pList.add(new Product(p));
             return true;
         }
         return false;
     }
-
-    private static boolean nameExists(List<Product> pList, ProductRecord p) {
-        return pList.stream()
-                .anyMatch(product ->
-                        product.getName().equalsIgnoreCase(p.name())
-                );
-    }
-
-    private static boolean idExists(List<Product> pList, ProductRecord p) {
-        return pList.stream()
-                .anyMatch(product ->
-                        product.getId() == p.id()
-                );
-    }
-
 }

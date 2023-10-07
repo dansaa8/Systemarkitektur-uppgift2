@@ -1,7 +1,5 @@
-package org.example.entities;
-import org.example.entities.Category;
-import org.example.entities.FieldValidator;
-import org.example.entities.ProductRecord;
+package com.example.systemarkitekturuppgift2.entities;
+import com.example.systemarkitekturuppgift2.util.ProductValidation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,47 +11,47 @@ public class FieldValidatorTest {
     public void testValidProductRecord() {
         ProductRecord validProduct = new ProductRecord(1, "Valid Product",
                 Category.COMPUTERS, 5, LocalDate.now(), LocalDate.now());
-        Assertions.assertTrue(FieldValidator.isValid(validProduct));
+        Assertions.assertTrue(ProductValidation.isValid(validProduct));
     }
 
     @Test
     public void testNullProductRecord() {
-        assertFalse(FieldValidator.isValid(null));
+        assertFalse(ProductValidation.isValid(null));
     }
 
     @Test
     public void testEmptyProductName() {
         ProductRecord emptyNameProduct = new ProductRecord(2, "",
                 Category.VEHICLES, 8, LocalDate.now(), LocalDate.now());
-        assertFalse(FieldValidator.isValid(emptyNameProduct));
+        assertFalse(ProductValidation.isValid(emptyNameProduct));
     }
 
     @Test
     public void testNegativeProductId() {
         ProductRecord negativeIdProduct = new ProductRecord(-1, "Negative ID Product",
                 Category.ANIMALS, 7, LocalDate.now(), LocalDate.now());
-        assertFalse(FieldValidator.isValid(negativeIdProduct));
+        assertFalse(ProductValidation.isValid(negativeIdProduct));
     }
 
     @Test
     public void testRatingBelowRange() {
         ProductRecord belowRangeRatingProduct = new ProductRecord(3, "Below Range Rating",
                 Category.CLOTHES, -1, LocalDate.now(), LocalDate.now());
-        assertFalse(FieldValidator.isValid(belowRangeRatingProduct));
+        assertFalse(ProductValidation.isValid(belowRangeRatingProduct));
     }
 
     @Test
     public void testRatingAboveRange() {
         ProductRecord aboveRangeRatingProduct = new ProductRecord(4, "Above Range Rating",
                 Category.COMPUTERS, 11, LocalDate.now(), LocalDate.now());
-        assertFalse(FieldValidator.isValid(aboveRangeRatingProduct));
+        assertFalse(ProductValidation.isValid(aboveRangeRatingProduct));
     }
 
     @Test
     public void testValidProductWithNullName() {
         ProductRecord validProductWithNullName = new ProductRecord(5, null,
                 Category.VEHICLES, 9, LocalDate.now(), LocalDate.now());
-        assertFalse(FieldValidator.isValid(validProductWithNullName));
+        assertFalse(ProductValidation.isValid(validProductWithNullName));
     }
 
 }
