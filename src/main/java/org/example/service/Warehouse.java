@@ -1,5 +1,6 @@
 package org.example.service;
 
+import com.example.systemarkitekturuppgift2.WarehouseService;
 import org.example.entities.Category;
 import org.example.entities.Product;
 import org.example.entities.ProductRecord;
@@ -10,7 +11,7 @@ import java.util.*;
 import static org.example.service.Queries.*;
 import static org.example.service.ListUpdater.*;
 
-public class Warehouse {
+public class Warehouse implements WarehouseService {
     private final List<Product> products;
 
     public Warehouse() {
