@@ -1,4 +1,8 @@
 package org.example.entities;
+import org.example.entities.Category;
+import org.example.entities.FieldValidator;
+import org.example.entities.ProductRecord;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
@@ -9,7 +13,7 @@ public class FieldValidatorTest {
     public void testValidProductRecord() {
         ProductRecord validProduct = new ProductRecord(1, "Valid Product",
                 Category.COMPUTERS, 5, LocalDate.now(), LocalDate.now());
-        assertTrue(FieldValidator.isValid(validProduct));
+        Assertions.assertTrue(FieldValidator.isValid(validProduct));
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.example.entities;
 
 import org.example.entities.Category;
 import org.example.entities.Product;
+import org.example.entities.ProductRecord;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -33,18 +33,19 @@ public class Warehouse {
         return products.stream().map(ProductRecord::new).toList();
     }
 
-    public List<ProductRecord> getAllProducts(Category desiredCategory) {
-        return Queries.getProductsInCategory(products, desiredCategory);
+    public List<ProductRecord> getProductsByCategory(Category desiredCategory) {
+        return findProductsByCategory(products, desiredCategory);
     }
 
-    public List<ProductRecord> getAllProducts(DateField desiredDateField, LocalDate targetDate) {
-        if (desiredDateField == DateField.CREATED_AT)
-            return getProductsCreatedAfterDesiredDate(products, targetDate);
-        else
-            return getProductsLastModifiedAfterDesiredDate(products,targetDate);
+    public List<ProductRecord> getProductsCreatedAfterDate(LocalDate desiredDate) {
+        return findProductsCreatedAfterDesiredDate(products, desiredDate);
     }
 
-    public List<String> getCategories() {
+    public List<ProductRecord> getProductsModifiedAfterDate(LocalDate desiredDate) {
+        return findProductsModifiedAfterDesiredDate(products, desiredDate);
+    }
+
+    public List<String> getExistingCategories() {
         return findExistingCategories(products);
     }
 

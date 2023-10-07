@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.example.entities.FieldValidator.isValid;
 
-class ListUpdater {
+public class ListUpdater {
 
     static boolean updateProduct(List<Product> pList, ProductRecord p) {
         if (!isValid(p))
@@ -33,7 +33,7 @@ class ListUpdater {
     }
 
     static boolean insertIntoList(List<Product> pList, ProductRecord p) {
-        if (isValid(p) && !nameExists(pList, p)) {
+        if (isValid(p) && !nameExists(pList, p) && !idExists(pList, p)) {
             pList.add(new Product(p));
             return true;
         }
@@ -46,4 +46,12 @@ class ListUpdater {
                         product.getName().equalsIgnoreCase(p.name())
                 );
     }
+
+    private static boolean idExists(List<Product> pList, ProductRecord p) {
+        return pList.stream()
+                .anyMatch(product ->
+                        product.getId() == p.id()
+                );
+    }
+
 }

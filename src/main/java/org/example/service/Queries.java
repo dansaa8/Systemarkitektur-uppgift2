@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 final class Queries {
     private Queries(){};
 
-    static List<ProductRecord> getProductsInCategory(List<Product> products, Category category) {
+    static List<ProductRecord> findProductsByCategory(List<Product> products, Category category) {
         return products.stream()
                 .filter(product -> product.getCategory() == category)
                 .map(ProductRecord::new)
@@ -20,7 +20,7 @@ final class Queries {
                 .toList();
     }
 
-    static List<ProductRecord> getProductsCreatedAfterDesiredDate(List<Product> products, LocalDate targetDate) {
+    static List<ProductRecord> findProductsCreatedAfterDesiredDate(List<Product> products, LocalDate targetDate) {
         return products.stream()
                 .filter(product -> product.getCreatedAt().isAfter(targetDate))
                 .map(ProductRecord::new)
@@ -28,7 +28,7 @@ final class Queries {
                 .toList();
     }
 
-    static List<ProductRecord> getProductsLastModifiedAfterDesiredDate(List<Product> products, LocalDate targetDate) {
+    static List<ProductRecord> findProductsModifiedAfterDesiredDate(List<Product> products, LocalDate targetDate) {
         return products.stream()
                 .filter(product -> product.getLastModified().isAfter(targetDate))
                 .map(ProductRecord::new)
