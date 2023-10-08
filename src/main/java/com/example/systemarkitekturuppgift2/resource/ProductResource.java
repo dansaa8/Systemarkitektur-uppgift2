@@ -120,9 +120,17 @@ public class ProductResource {
 
     @GET
     @Path("/categories")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Map<String, List<String>> getCategories() {
         return wh.getExistingCategories();
     }
+
+    @GET
+    @Path("/firstLetters")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Long> getFirstLetters() {
+        return wh.getFirstLetters();
+    }
+
 }
 
