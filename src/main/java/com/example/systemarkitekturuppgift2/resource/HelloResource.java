@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Path("/hello")
-public class HelloResource {
+public class    HelloResource {
 
     private GreetingService greetingService;
 

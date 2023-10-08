@@ -1,16 +1,19 @@
 package com.example.systemarkitekturuppgift2.resource;
 
+import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.example.systemarkitekturuppgift2.service.WarehouseTestService;
+import static com.example.systemarkitekturuppgift2.util.EndpointValidator.isValidCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import java.util.List;
+
+
 
 @Path("products")
 public class ProductResource {
@@ -59,6 +62,21 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List query() {
         return wh.getAllProducts();
+    }
+
+    @GET
+    @Path("/query")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCategory(@QueryParam("category") Category category) {
+        System.out.println(category);
+        if (category != null && isValidCategory(category))
+            return Response.ok(wh.getProductsByCategory(category)).build();
+        else {
+            String errorMessage = "Invalid category provided.";
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(errorMessage)
+                    .build();
+        }
     }
 }
 

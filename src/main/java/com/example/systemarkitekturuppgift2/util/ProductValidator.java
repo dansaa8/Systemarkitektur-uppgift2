@@ -5,8 +5,8 @@ import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 
 import java.util.List;
 
-public final class ProductValidation {
-    private ProductValidation() {}
+public final class ProductValidator {
+    private ProductValidator() {}
 
     public static boolean isValid(ProductRecord p) {
         if (p == null) return false;

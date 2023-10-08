@@ -6,8 +6,8 @@ import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.example.systemarkitekturuppgift2.util.ProductValidation.alreadyExists;
-import static com.example.systemarkitekturuppgift2.util.ProductValidation.isValid;
+import static com.example.systemarkitekturuppgift2.util.ProductValidator.alreadyExists;
+import static com.example.systemarkitekturuppgift2.util.ProductValidator.isValid;
 
 public class ProductUpdater {
 
