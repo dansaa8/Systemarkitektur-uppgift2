@@ -511,7 +511,7 @@ class WarehouseTest {
 
 
 
-    assertThat(w.getProductsWithHighestRating(LocalDate.of(2023,9,1)))
+    assertThat(w.getProductsWithMaxRating(LocalDate.of(2023,9,1)))
             .isNotSameAs(expectedList)
             .containsExactlyElementsOf(expectedList);
     }
@@ -535,7 +535,7 @@ class WarehouseTest {
                 LocalDate.of(2022, 3, 9),
                 LocalDate.of(2022, 4, 18));
 
-        assertThat(w.getProductsWithHighestRating(LocalDate.of(2023, 1, 1)))
+        assertThat(w.getProductsWithMaxRating(LocalDate.of(2023, 1, 1)))
                 .isEmpty();
 
     }

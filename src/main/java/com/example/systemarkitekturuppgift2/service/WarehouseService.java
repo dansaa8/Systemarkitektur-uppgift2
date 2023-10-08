@@ -18,6 +18,6 @@ public interface WarehouseService {
      List getProductsModifiedAfterDate(LocalDate desiredDate);
      Map<String, List<String>> getExistingCategories();
      Map getFirstLetters();
-     List getProductsWithHighestRating(LocalDate date);
+     List getProductsWithMaxRating(LocalDate date);
 
 }

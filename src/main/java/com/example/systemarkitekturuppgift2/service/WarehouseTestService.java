@@ -60,7 +60,7 @@ public class WarehouseTestService implements WarehouseService {
         return ProductGetter.countFirstCharacterOccurrence(products);
     }
 
-    public List<ProductRecord> getProductsWithHighestRating(LocalDate date) {
-        return ProductGetter.findProductsWithHighestRatingThisMonth(products, date);
+    public List<ProductRecord> getProductsWithMaxRating(LocalDate date) {
+        return ProductGetter.findProductsWithMaxRatingThisMonth(products, date);
     }
 }

@@ -11,9 +11,9 @@ public final class MockDataGenerator {
 
         public static List<Product> renderProducts(List<Product> pList) {
             pList.add(new Product(1, "Motorcycle",
-                    Category.VEHICLES, 4,
-                    LocalDate.of(2023, 8, 4),
-                    LocalDate.of(2023, 9, 5)));
+                    Category.VEHICLES, 10,
+                    LocalDate.of(2023, 10, 4),
+                    LocalDate.of(2023, 10, 5)));
             pList.add(new Product(2, "Car",
                     Category.VEHICLES, 6,
                     LocalDate.of(2023, 4, 4),
@@ -47,8 +47,8 @@ public final class MockDataGenerator {
                     LocalDate.of(2023, 5, 24)));
             pList.add(new Product(9, "Hat",
                     Category.CLOTHES, 10,
-                    LocalDate.of(2023, 4, 5),
-                    LocalDate.of(2023, 4, 9)));
+                    LocalDate.of(2023, 10, 5),
+                    LocalDate.of(2023, 10, 9)));
 
 
             pList.add(new Product(10, "Laptop",

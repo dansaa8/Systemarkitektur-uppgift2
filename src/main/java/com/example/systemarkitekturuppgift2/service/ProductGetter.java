@@ -65,7 +65,7 @@ final class ProductGetter {
                 ));
     }
 
-    static List<ProductRecord> findProductsWithHighestRatingThisMonth(List<Product> pList, LocalDate date) {
+    static List<ProductRecord> findProductsWithMaxRatingThisMonth(List<Product> pList, LocalDate date) {
         return pList.stream()
                 .filter(product -> product.getRating() == 10)
                 .filter(product -> product.getCreatedAt().getMonth() == date.getMonth())

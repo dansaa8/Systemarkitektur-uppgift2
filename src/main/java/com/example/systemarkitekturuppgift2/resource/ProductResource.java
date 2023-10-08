@@ -132,5 +132,11 @@ public class ProductResource {
         return wh.getFirstLetters();
     }
 
+    @GET
+    @Path("/new/maxRating")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ProductRecord> getMaxRated() {
+        return wh.getProductsWithMaxRating(LocalDate.now());
+    }
 }
 
