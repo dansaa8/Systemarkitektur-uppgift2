@@ -3,12 +3,17 @@ package com.example.systemarkitekturuppgift2.service;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
+import com.example.systemarkitekturuppgift2.util.MockDataGenerator;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-import static com.example.systemarkitekturuppgift2.service.ProductUpdater.*;
+import static com.example.systemarkitekturuppgift2.service.ProductUpdater.insertIntoList;
+import static com.example.systemarkitekturuppgift2.service.ProductUpdater.updateProduct;
 
 @ApplicationScoped
 public class WarehouseTestService implements WarehouseService {
@@ -16,6 +21,7 @@ public class WarehouseTestService implements WarehouseService {
 
     public WarehouseTestService() {
         this.products = new ArrayList<>();
+        MockDataGenerator.renderProducts(products);
     }
 
     public boolean addProduct(ProductRecord p) {
