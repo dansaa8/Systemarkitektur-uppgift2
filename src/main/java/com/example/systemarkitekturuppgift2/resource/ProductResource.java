@@ -12,7 +12,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Path("products")
@@ -76,6 +76,18 @@ public class ProductResource {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(errorMessage)
                     .build();
+        }
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductById(@PathParam("id") int id) {
+        Optional product = wh.getProduct(id);
+        if (product.isPresent())
+            return Response.ok(product.get()).build();
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 }
