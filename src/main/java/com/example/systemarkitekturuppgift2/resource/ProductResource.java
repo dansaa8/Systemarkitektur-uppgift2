@@ -94,14 +94,25 @@ public class ProductResource {
     }
 
     @GET
-    @Path("/createdAfter/{date}")
+    @Path("/createdAfter")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCreatedAfter(@PathParam("date")String dateParam) {
+    public Response getCreatedAfter(@QueryParam("date")String dateParam) {
         LocalDate date = parseDate(dateParam);
         if (date == null)
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid date format").build();
 
         return Response.ok().entity(wh.getProductsCreatedAfterDate(date)).build();
+    }
+
+    @GET
+    @Path("/modifiedAfter")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getModifiedAfter(@QueryParam("date")String dateParam) {
+        LocalDate date = parseDate(dateParam);
+        if (date == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid date format").build();
+
+        return Response.ok().entity(wh.getProductsModifiedAfterDate(date)).build();
     }
 }
 
