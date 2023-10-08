@@ -16,7 +16,7 @@ public interface WarehouseService {
      List getProductsByCategory(Category desiredCategory);
      List getProductsCreatedAfterDate(LocalDate desiredDate);
      List getProductsModifiedAfterDate(LocalDate desiredDate);
-     List getExistingCategories();
+     Map<String, List<String>> getExistingCategories();
      Map getFirstLetters();
      List getProductsWithHighestRating(LocalDate date);
 

@@ -12,8 +12,11 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import javax.print.attribute.standard.Media;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -113,6 +116,13 @@ public class ProductResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid date format").build();
 
         return Response.ok().entity(wh.getProductsModifiedAfterDate(date)).build();
+    }
+
+    @GET
+    @Path("/categories")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Map<String, List<String>> getCategories() {
+        return wh.getExistingCategories();
     }
 }
 

@@ -5,10 +5,7 @@ import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 final class ProductGetter {
@@ -46,12 +43,17 @@ final class ProductGetter {
                 .orElse(null);
     }
 
-    static List<String> findExistingCategories(List<Product> pList) {
-        return pList.stream()
+    static Map<String, List<String>> findExistingCategories(List<Product> pList) {
+        Map<String, List<String>> result = new HashMap<>();
+        List<String> categoryList = pList.stream()
                 .map(p -> p.getCategory().toString())
                 .distinct()
                 .toList();
+
+        result.put("categories", categoryList);
+        return result;
     }
+
 
     static Map<String, Long> countFirstCharacterOccurrence(List<Product> pList) {
         return pList.stream()

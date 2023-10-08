@@ -2,11 +2,13 @@ package com.example.systemarkitekturuppgift2.service;
 
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
@@ -360,7 +362,13 @@ class WarehouseTest {
         w.addProduct(p2);
         w.addProduct(p3);
 
-        assertThat(w.getExistingCategories())
+        Map<String, List<String>> result = w.getExistingCategories();
+
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result).containsKey("categories");
+        List<String> categories = result.get("categories");
+
+        assertThat(categories)
                 .as("List should contain following categories: ANIMALS, COMPUTERS")
                 .containsSequence("ANIMALS", "COMPUTERS")
                 .hasSize(2)
@@ -371,7 +379,10 @@ class WarehouseTest {
     public void emptyProductListInWarehouseReturnEmptyCategoryList() {
         WarehouseTestService w = new WarehouseTestService();
 
-        assertThat(w.getExistingCategories())
+        Map<String, List<String>> result = w.getExistingCategories();
+        List<String> categories = result.get("categories");
+
+        assertThat(categories)
                 .as("Should return an empty list of categories when no products are present")
                 .isEmpty();
     }

@@ -52,7 +52,7 @@ public class WarehouseTestService implements WarehouseService {
         return ProductGetter.findProductsModifiedAfterDesiredDate(products, desiredDate);
     }
 
-    public List<String> getExistingCategories() {
+    public Map<String, List<String>> getExistingCategories() {
         return ProductGetter.findExistingCategories(products);
     }
 
