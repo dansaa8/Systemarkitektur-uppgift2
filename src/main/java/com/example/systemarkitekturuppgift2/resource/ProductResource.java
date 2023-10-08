@@ -4,13 +4,15 @@ import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.example.systemarkitekturuppgift2.service.WarehouseTestService;
-import static com.example.systemarkitekturuppgift2.util.EndpointValidator.isValidCategory;
+import static com.example.systemarkitekturuppgift2.util.EndpointValidator.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +62,7 @@ public class ProductResource {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public List query() {
+    public List getAll() {
         return wh.getAllProducts();
     }
 
@@ -89,6 +91,17 @@ public class ProductResource {
         else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @GET
+    @Path("/createdAfter/{date}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCreatedAfter(@PathParam("date")String dateParam) {
+        LocalDate date = parseDate(dateParam);
+        if (date == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid date format").build();
+
+        return Response.ok().entity(wh.getProductsCreatedAfterDate(date)).build();
     }
 }
 
