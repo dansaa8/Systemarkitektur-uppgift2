@@ -3,7 +3,7 @@ package com.example.systemarkitekturuppgift2.resource;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
-import com.example.systemarkitekturuppgift2.service.WarehouseTestService;
+import com.example.systemarkitekturuppgift2.service.WarehouseBusinessService;
 import static com.example.systemarkitekturuppgift2.util.EndpointValidator.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -12,9 +12,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import javax.print.attribute.standard.Media;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +28,7 @@ public class ProductResource {
 
     @Inject
     public ProductResource() {
-        this.wh = WarehouseTestService.create();
+        this.wh = WarehouseBusinessService.create();
         this.objectMapper.registerModule(new JavaTimeModule());
     }
 

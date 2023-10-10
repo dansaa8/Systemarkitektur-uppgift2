@@ -19,21 +19,21 @@ class WarehouseTest {
     @Test
     void addProductWithEmptyNameReturnFalse() {
         ProductRecord p = new ProductRecord(0, "", Category.VEHICLES, 0, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.addProduct(p));
     }
 
     @Test
     void addProductWithNullReferenceReturnFalse() {
         ProductRecord p = null;
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.addProduct(p));
     }
 
     @Test
     void addProductWithANameNotEmptyReturnTrue() {
         ProductRecord p = new ProductRecord(0, "Motorcycle", Category.VEHICLES, 0, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(true, w.addProduct(p));
     }
 
@@ -41,7 +41,7 @@ class WarehouseTest {
     void addProductWithRatingHigherThan10ReturnFalse() {
         ProductRecord p1 = new ProductRecord(0, "Motorcycle", Category.VEHICLES, 11, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(0, "Car", Category.VEHICLES, 13, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.addProduct(p1));
         assertEquals(false, w.addProduct(p2));
     }
@@ -50,7 +50,7 @@ class WarehouseTest {
     void addProductWithNegativeRatingReturnFalse() {
         ProductRecord p1 = new ProductRecord(0, "Motorcycle", Category.VEHICLES, -1, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(0, "Car", Category.VEHICLES, -6, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.addProduct(p1));
         assertEquals(false, w.addProduct(p2));
     }
@@ -60,7 +60,7 @@ class WarehouseTest {
         ProductRecord p1 = new ProductRecord(1, "Motorcycle", Category.VEHICLES, 0, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(2, "Boat", Category.VEHICLES, 4, LocalDate.now(), LocalDate.now());
         ProductRecord p3 = new ProductRecord(3, "Car", Category.VEHICLES, 10, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(true, w.addProduct(p1));
         assertEquals(true, w.addProduct(p2));
         assertEquals(true, w.addProduct(p3));
@@ -69,14 +69,14 @@ class WarehouseTest {
     @Test
     void addProdWithNegIdReturnFalse() {
         ProductRecord p1 = new ProductRecord(-1, "Cat", Category.ANIMALS, 2, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.addProduct(p1));
     }
 
     @Test
     void addProdWithPosIdReturnTrue() {
         ProductRecord p1 = new ProductRecord(2, "Cat", Category.ANIMALS, 2, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(true, w.addProduct(p1));
     }
 
@@ -84,7 +84,7 @@ class WarehouseTest {
     void addProdWithTheSameNameReturnFalse() {
         ProductRecord p1 = new ProductRecord(1, "Bird", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(2, "birD", Category.ANIMALS, 3, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(true, w.addProduct(p1));
         assertEquals(false, w.addProduct(p2));
     }
@@ -93,7 +93,7 @@ class WarehouseTest {
     void addProductWithTheSameIDReturnFalse() {
         ProductRecord p1 = new ProductRecord(1, "Bird", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(1, "Monkey", Category.ANIMALS, 3, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(true, w.addProduct(p1));
         assertEquals(false, w.addProduct(p2));
     }
@@ -101,14 +101,14 @@ class WarehouseTest {
     @Test
     void modifyNullProductReturnFalse() {
         ProductRecord p = null;
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.modifyProduct(p));
     }
 
     @Test
     void modifyNonExistingProductReturnFalse() {
         ProductRecord p = new ProductRecord(1, "hoRsE", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertEquals(false, w.modifyProduct(p));
     }
 
@@ -116,7 +116,7 @@ class WarehouseTest {
     void modifyExistingObjectReturnTrue() {
         ProductRecord p1 = new ProductRecord(1, "hoRsE", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(1, "HOrSE", Category.VEHICLES, 3, LocalDate.now(), LocalDate.now());
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         w.addProduct(p1);
         assertEquals(true, w.modifyProduct(p2));
@@ -124,7 +124,7 @@ class WarehouseTest {
 
     @Test
     void modifyProductShouldChangeValueOfAProductIfANewProductWithTheSameIDIsSentAsAnArgument() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         ProductRecord p1 = new ProductRecord(1, "Cow", Category.ANIMALS, 5,
                 LocalDate.of(2021, 11, 12),
@@ -156,7 +156,7 @@ class WarehouseTest {
 
     @Test
     void getAnEmptyModifiableList() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         assertThat(w.getAllProducts())
                 .as("Should return an empty list of no objects have been added")
                 .isUnmodifiable()
@@ -165,7 +165,7 @@ class WarehouseTest {
 
     @Test
     void getProductWithCorrectProductID() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         ProductRecord p1 = new ProductRecord(4, "Cow", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(1, "Airplane", Category.VEHICLES, 3, LocalDate.now(), LocalDate.now());
         ProductRecord p3 = new ProductRecord(2, "Jeans", Category.CLOTHES, 7, LocalDate.now(), LocalDate.now());
@@ -184,7 +184,7 @@ class WarehouseTest {
 
     @Test
     void getProductWithInvalidProductID() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         ProductRecord p1 = new ProductRecord(4, "Cow", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(1, "Airplane", Category.VEHICLES, 3, LocalDate.now(), LocalDate.now());
         ProductRecord p3 = new ProductRecord(2, "Jeans", Category.CLOTHES, 7, LocalDate.now(), LocalDate.now());
@@ -203,7 +203,7 @@ class WarehouseTest {
 
     @Test
     void getUnmodifiableListOfProductsThatWereAddedToTheList() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         ProductRecord p1 = new ProductRecord(4, "Cow", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(1, "Airplane", Category.VEHICLES, 3, LocalDate.now(), LocalDate.now());
         ProductRecord p3 = new ProductRecord(2, "Jeans", Category.CLOTHES, 0, LocalDate.now(), LocalDate.now());
@@ -220,7 +220,7 @@ class WarehouseTest {
 
     @Test
     void getAllProductsOfASpecificCategory() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         ProductRecord p1 = new ProductRecord(4, "Jeans", Category.CLOTHES, 5, LocalDate.now(), LocalDate.now());
         ProductRecord p2 = new ProductRecord(2, "Bear", Category.ANIMALS, 7, LocalDate.now(), LocalDate.now());
         ProductRecord p3 = new ProductRecord(3, "Dog", Category.ANIMALS, 5, LocalDate.now(), LocalDate.now());
@@ -251,7 +251,7 @@ class WarehouseTest {
 
     @Test
     public void getAllProductsWithACategoryThatDoesntExistReturnEmptyList() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         assertThat(w.getProductsByCategory(Category.CLOTHES))
                 .as("Should return an empty list")
@@ -260,7 +260,7 @@ class WarehouseTest {
 
     @Test
     public void getAllProductsWithAGivenDateShouldReturnAllProductsCreatedAfterThatDate() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         ProductRecord p1 = new ProductRecord(4, "Jeans", Category.CLOTHES, 5,
                 LocalDate.of(2023, 7, 11),
@@ -302,7 +302,7 @@ class WarehouseTest {
 
     @Test
     public void getAllProductsWithAGivenDateShouldReturnAllProductsModifiedAfterThatDate() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         ProductRecord p1 = new ProductRecord(4, "Jeans", Category.CLOTHES, 5,
                 LocalDate.of(2023, 1, 11),
@@ -344,7 +344,7 @@ class WarehouseTest {
 
     @Test
     public void getCategoriesThatHasAtleastOneProductInProductsList() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         ProductRecord p1 = new ProductRecord(1, "Bear", Category.ANIMALS, 7,
                 LocalDate.of(2023, 2, 11),
@@ -377,7 +377,7 @@ class WarehouseTest {
 
     @Test
     public void emptyProductListInWarehouseReturnEmptyCategoryList() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         Map<String, List<String>> result = w.getExistingCategories();
         List<String> categories = result.get("categories");
@@ -389,7 +389,7 @@ class WarehouseTest {
 
     @Test
     public void getAMapWithEveryProductStartingLetterAndCountOccurences() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         ProductRecord p1 = new ProductRecord(4, "Jeans", Category.CLOTHES, 5,
                 LocalDate.of(2023, 1, 11),
@@ -447,7 +447,7 @@ class WarehouseTest {
 
     @Test
     public void getMapWithEveryProductLetterReturnEmptyMapIfNoProductsArePresent() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         assertThat(w.getFirstLetters())
                 .isEmpty();
@@ -455,7 +455,7 @@ class WarehouseTest {
 
     @Test
     public void getAllProductsWithMaxRatingCreatedThisMonthSortedByNewestFirst() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
 
         ProductRecord p1 = new ProductRecord(1, "Jeans", Category.CLOTHES, 5,
                 LocalDate.of(2023, 9, 11),
@@ -518,7 +518,7 @@ class WarehouseTest {
 
     @Test
     public void getMostPopularProductsReturnEmptyListWhenNoProductsAreFound() {
-        WarehouseTestService w = new WarehouseTestService();
+        WarehouseBusinessService w = new WarehouseBusinessService();
         ProductRecord p1 = new ProductRecord(1, "Jeans", Category.CLOTHES, 5,
                 LocalDate.of(2023, 9, 11),
                 LocalDate.of(2023, 9, 14));
