@@ -5,6 +5,7 @@ import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.util.MockDataGenerator;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.Produces;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,6 +23,11 @@ public class WarehouseTestService implements WarehouseService {
     public WarehouseTestService() {
         this.products = new ArrayList<>();
         MockDataGenerator.renderProducts(products);
+    }
+
+    @Produces
+    public static WarehouseTestService create() {
+        return new WarehouseTestService();
     }
 
     public boolean addProduct(ProductRecord p) {

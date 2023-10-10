@@ -26,11 +26,11 @@ public class ProductResource {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ProductResource() {}
+//    public ProductResource() {}
 
     @Inject
-    public ProductResource(WarehouseTestService wh) {
-        this.wh = wh;
+    public ProductResource() {
+        this.wh = WarehouseTestService.create();
         this.objectMapper.registerModule(new JavaTimeModule());
     }
 
