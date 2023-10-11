@@ -2,11 +2,9 @@ package com.example.systemarkitekturuppgift2.resource;
 
 import com.example.systemarkitekturuppgift2.Log;
 import com.example.systemarkitekturuppgift2.entities.Category;
-import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
-import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.example.systemarkitekturuppgift2.service.WarehouseBusinessService;
-import static com.example.systemarkitekturuppgift2.util.EndpointValidator.*;
+import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Inject;
@@ -23,6 +21,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.example.systemarkitekturuppgift2.util.EndpointValidator.isValidCategory;
+import static com.example.systemarkitekturuppgift2.util.EndpointValidator.parseDate;
 
 
 @Path("products")
@@ -48,8 +49,8 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("")
     public void createProduct(@Valid ProductRecord p) {
-        logger.info("Product uploaded" + p);
-        throw new NotFoundException();
+//        logger.info("Product uploaded" + p);
+//        throw new MyException("Invalid id");
 //        try {
 //            // Deserialize the JSON data into a ProductRecord object
 //            ProductRecord product = objectMapper.readValue(p, ProductRecord.class);
