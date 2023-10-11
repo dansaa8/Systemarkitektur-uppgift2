@@ -1,6 +1,8 @@
 package com.example.systemarkitekturuppgift2.resource;
 
+import com.example.systemarkitekturuppgift2.Log;
 import com.example.systemarkitekturuppgift2.entities.Category;
+import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.example.systemarkitekturuppgift2.service.WarehouseBusinessService;
@@ -8,9 +10,14 @@ import static com.example.systemarkitekturuppgift2.util.EndpointValidator.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +26,12 @@ import java.util.Optional;
 
 
 @Path("products")
+// Sätt till application JSON.
+@Log
 public class ProductResource {
     private WarehouseService wh;
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductResource.class);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -36,34 +47,39 @@ public class ProductResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("")
-    public Response createProduct(String productJson) {
-        try {
-            // Deserialize the JSON data into a ProductRecord object
-            ProductRecord product = objectMapper.readValue(productJson, ProductRecord.class);
-
-            // Your POST request handling logic here
-            wh.addProduct(product);
-            // You can access the 'product' object, which is a ProductRecord
-
-            // Serialize the response data back to JSON
-            String responseJson = "{\"message\": \"Product created successfully\"}";
-
-            return Response.status(Response.Status.CREATED)
-                    .entity(responseJson)
-                    .build();
-        } catch (Exception e) {
-            // Handle any exceptions that may occur during JSON deserialization
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Invalid JSON data: " + e.getMessage())
-                    .build();
-        }
+    public void createProduct(@Valid ProductRecord p) {
+        logger.info("Product uploaded" + p);
+        throw new NotFoundException();
+//        try {
+//            // Deserialize the JSON data into a ProductRecord object
+//            ProductRecord product = objectMapper.readValue(p, ProductRecord.class);
+//
+//            // Your POST request handling logic here
+//            wh.addProduct(product);
+//            // You can access the 'product' object, which is a ProductRecord
+//
+//            // Serialize the response data back to JSON
+//            String responseJson = "{\"message\": \"Product created successfully\"}";
+//
+//            return Response.status(Response.Status.CREATED)
+//                    .entity(responseJson)
+//                    .build();
+//        } catch (Exception e) {
+//            // Handle any exceptions that may occur during JSON deserialization
+//            return Response.status(Response.Status.BAD_REQUEST)
+//                    .entity("Invalid JSON data: " + e.getMessage())
+//                    .build();
+//        }
     }
 
 
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public List getAll() {
+    public List getAll(@Context UriInfo uri) {
+//        logger.info("Connection to " + uri.getAbsolutePath());
+//        logger.warn("/getAll called");
+//        logger.error("/getAll called");
         return wh.getAllProducts();
     }
 
@@ -90,6 +106,8 @@ public class ProductResource {
         if (product.isPresent())
             return Response.ok(product.get()).build();
         else {
+            logger.error("/id product with id doesn't exist");
+            logger.info("/products/" + id + " called");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

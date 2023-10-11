@@ -1,8 +1,27 @@
 package com.example.systemarkitekturuppgift2.entities;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
-public record ProductRecord(int id, String name, Category category, int rating, LocalDate createdAt, LocalDate lastModified) {
+public record ProductRecord(
+
+        @Min(value = 0, message = "Id must not be lower than 0")
+        int id,
+
+        @NotNull(message = "Name cannot be null")
+        String name,
+
+        @NotNull(message = "Category cannot be null")
+        Category category,
+
+        @Min(value = 0, message = "Rating must not be lower than 0")
+        @Max(value = 10, message = "Rating must not be higher than 10")
+        int rating,
+        LocalDate createdAt,
+        LocalDate lastModified) {
     public ProductRecord(Product other) {
         this(
                 other.getId(),

@@ -1,13 +1,26 @@
 package com.example.systemarkitekturuppgift2.entities;
 
 import java.time.LocalDate;
+import jakarta.validation.constraints.*;
 import java.util.*;
 
 public final class Product {
+
+    @Min(value = 0, message = "Id should not be less than 0")
     private final int id;
+
+    @NotNull(message = "Name cannot be null")
     private String name;
+
+
+    @NotNull
     private Category category;
+
+    @Min(value = 0, message = "Rating must not be lower than 0")
+    @Max(value = 10, message = "Rating must not be higher than 10")
     private int rating;
+
+
     private final LocalDate createdAt;
     private LocalDate lastModified;
 

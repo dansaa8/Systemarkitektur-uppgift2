@@ -1,5 +1,6 @@
 package com.example.systemarkitekturuppgift2.service;
 
+import com.example.systemarkitekturuppgift2.Log;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
@@ -23,6 +24,7 @@ import static jakarta.ejb.LockType.WRITE;
 
 @ConcurrencyManagement(BEAN)
 @Singleton
+@Log
 public class WarehouseBusinessService implements WarehouseService {
     private final List<Product> products;
 
