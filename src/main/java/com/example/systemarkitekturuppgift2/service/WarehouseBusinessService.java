@@ -8,6 +8,8 @@ import com.example.systemarkitekturuppgift2.util.MockDataGenerator;
 import jakarta.ejb.ConcurrencyManagement;
 import jakarta.ejb.Lock;
 import jakarta.ejb.Singleton;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 
 import java.time.LocalDate;
@@ -30,7 +32,7 @@ public class WarehouseBusinessService implements WarehouseService {
 
     public WarehouseBusinessService() {
         this.products = new ArrayList<>();
-        MockDataGenerator.renderProducts(products);
+//        MockDataGenerator.renderProducts(products);
     }
 
     @Produces

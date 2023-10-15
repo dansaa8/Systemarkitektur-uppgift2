@@ -36,11 +36,11 @@ public class ProductResource {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-//    public ProductResource() {}
+    public ProductResource() {}
 
     @Inject
-    public ProductResource() {
-        this.wh = WarehouseBusinessService.create();
+    public ProductResource(WarehouseService warehouseService) {
+        this.wh = warehouseService;
         this.objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -49,6 +49,7 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("")
     public void uploadProduct(@Valid ProductRecord p) {
+        wh.addProduct(p);
         logger.info("Product uploaded " + p);
     }
 
