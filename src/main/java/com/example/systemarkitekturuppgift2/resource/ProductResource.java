@@ -48,29 +48,8 @@ public class ProductResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("")
-    public void createProduct(@Valid ProductRecord p) {
-//        logger.info("Product uploaded" + p);
-//        throw new MyException("Invalid id");
-//        try {
-//            // Deserialize the JSON data into a ProductRecord object
-//            ProductRecord product = objectMapper.readValue(p, ProductRecord.class);
-//
-//            // Your POST request handling logic here
-//            wh.addProduct(product);
-//            // You can access the 'product' object, which is a ProductRecord
-//
-//            // Serialize the response data back to JSON
-//            String responseJson = "{\"message\": \"Product created successfully\"}";
-//
-//            return Response.status(Response.Status.CREATED)
-//                    .entity(responseJson)
-//                    .build();
-//        } catch (Exception e) {
-//            // Handle any exceptions that may occur during JSON deserialization
-//            return Response.status(Response.Status.BAD_REQUEST)
-//                    .entity("Invalid JSON data: " + e.getMessage())
-//                    .build();
-//        }
+    public void uploadProduct(@Valid ProductRecord p) {
+        logger.info("Product uploaded " + p);
     }
 
 
