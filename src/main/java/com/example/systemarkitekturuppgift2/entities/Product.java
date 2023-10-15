@@ -2,7 +2,8 @@ package com.example.systemarkitekturuppgift2.entities;
 
 import java.time.LocalDate;
 
-import com.example.systemarkitekturuppgift2.constraint.CategoryConstraint;
+import com.example.systemarkitekturuppgift2.constraint.ValidCategory;
+import com.example.systemarkitekturuppgift2.constraint.ValidLocalDateFormat;
 import jakarta.validation.constraints.*;
 import java.util.*;
 
@@ -14,16 +15,20 @@ public final class Product {
     @NotBlank(message = "Name can't be null or empty")
     private String name;
 
-    @CategoryConstraint
+    @ValidCategory
     private Category category;
 
     @Min(value = 0, message = "Rating must not be lower than 0")
     @Max(value = 10, message = "Rating must not be higher than 10")
     private int rating;
 
+    @NotNull(message = "createdAt cannot be null")
+    @ValidLocalDateFormat
+    LocalDate createdAt;
 
-    private final LocalDate createdAt;
-    private LocalDate lastModified;
+    @NotNull(message = "lastModified cannot be null")
+    @ValidLocalDateFormat
+    LocalDate lastModified;
 
     public Product(int id, String name, Category category, int rating, LocalDate createdAt, LocalDate lastModified) {
         this.id = id;

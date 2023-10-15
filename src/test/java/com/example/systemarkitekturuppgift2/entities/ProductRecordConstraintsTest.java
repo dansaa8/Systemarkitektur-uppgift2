@@ -3,6 +3,7 @@ package com.example.systemarkitekturuppgift2.entities;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import jakarta.validation.constraints.Null;
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
 import org.junit.jupiter.api.BeforeEach;
@@ -131,6 +132,44 @@ public class ProductRecordConstraintsTest {
         List<ProductRecord> products = new ArrayList<>(Arrays.asList(p1, p2));
 
         Set<ConstraintViolation<List<ProductRecord>>> violations = validator.validate(products);
+
+        assertThat(violations.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testCreatedAtConstraintWithNullDateExpectViolation() {
+        ProductRecord p = new ProductRecord(0, "Raspberry Pi",
+                Category.COMPUTERS, 1, null, LocalDate.now());
+        Set<ConstraintViolation<ProductRecord>> violations = validator.validate(p);
+
+        assertThat(violations.size()).isEqualTo(1);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("createdAt cannot be null");
+    }
+
+    @Test
+    public void testCreatedAtConstraintOkDateExpectNoViolation() {
+        ProductRecord p = new ProductRecord(0, "Raspberry Pi",
+                Category.COMPUTERS, 1, LocalDate.now(), LocalDate.now());
+        Set<ConstraintViolation<ProductRecord>> violations = validator.validate(p);
+
+        assertThat(violations.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testLastModifiedConstraintWithNullDateExpectViolation() {
+        ProductRecord p = new ProductRecord(0, "Raspberry Pi",
+                Category.COMPUTERS, 1, LocalDate.now(), null);
+        Set<ConstraintViolation<ProductRecord>> violations = validator.validate(p);
+
+        assertThat(violations.size()).isEqualTo(1);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("lastModified cannot be null");
+    }
+
+    @Test
+    public void testLastModifiedConstraintOkDateExpectNoViolation() {
+        ProductRecord p = new ProductRecord(0, "Raspberry Pi",
+                Category.COMPUTERS, 1, LocalDate.now(), LocalDate.now());
+        Set<ConstraintViolation<ProductRecord>> violations = validator.validate(p);
 
         assertThat(violations.size()).isEqualTo(0);
     }

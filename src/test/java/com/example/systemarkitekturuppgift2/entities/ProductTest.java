@@ -109,4 +109,7 @@ public class ProductTest {
         assertEquals(lastModified, product.getLastModified());
     }
 
+//    @Test
+//    public void testDateNot
+
 }

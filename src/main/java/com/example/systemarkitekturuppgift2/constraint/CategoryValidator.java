@@ -7,9 +7,9 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CategoryValidator implements ConstraintValidator<CategoryConstraint, Category> {
+public class CategoryValidator implements ConstraintValidator<ValidCategory, Category> {
     @Override
-    public void initialize(CategoryConstraint constraintAnnotation) {
+    public void initialize(ValidCategory constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

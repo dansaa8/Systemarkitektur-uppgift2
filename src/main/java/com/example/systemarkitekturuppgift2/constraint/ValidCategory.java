@@ -14,7 +14,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = CategoryValidator.class)
-public @interface CategoryConstraint {
+public @interface ValidCategory {
     String message() default "";
     Class<?> [] groups() default {};
     Class<? extends Payload>[] payload() default {};
