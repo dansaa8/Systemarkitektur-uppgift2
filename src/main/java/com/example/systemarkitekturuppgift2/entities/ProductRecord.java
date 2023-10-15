@@ -1,22 +1,19 @@
 package com.example.systemarkitekturuppgift2.entities;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import com.example.systemarkitekturuppgift2.constraint.CategoryConstraint;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
 public record ProductRecord(
 
-        @Min(value = 0, message = "Id must not be lower than 0")
+        @Min(value = 0, message = "Id should not be less than 0")
         int id,
 
-        @NotNull(message = "Name cannot be null")
-                @NotEmpty(message = "Name cannot be empty")
+        @NotBlank(message = "Name can't be null or empty")
         String name,
 
-        @NotNull(message = "Category cannot be null")
+        @CategoryConstraint
         Category category,
 
         @Min(value = 0, message = "Rating must not be lower than 0")

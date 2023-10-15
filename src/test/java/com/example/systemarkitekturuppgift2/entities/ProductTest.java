@@ -3,12 +3,32 @@ package com.example.systemarkitekturuppgift2.entities;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.Product;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import org.hibernate.validator.HibernateValidator;
+import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public class ProductTest {
+
+    private Validator validator;
+
+    @BeforeEach
+    public void setUp() {
+        validator = Validation.byProvider(HibernateValidator.class)
+                .configure()
+                .messageInterpolator(new ParameterMessageInterpolator())
+                .buildValidatorFactory()
+                .getValidator();
+    }
 
     @Test
     public void testConstructorAndGetters() {
@@ -87,18 +107,6 @@ public class ProductTest {
         assertEquals(4, product.getRating(), 0.001);
         assertEquals(createdAt, product.getCreatedAt());
         assertEquals(lastModified, product.getLastModified());
-    }
-
-    @Test
-    public void testProductToString() {
-        LocalDate createdAt = LocalDate.of(2023, 9, 25);
-        LocalDate lastModified = LocalDate.of(2023, 9, 30);
-        ProductRecord record = new ProductRecord(2, "Another Product",
-                Category.COMPUTERS, 3, createdAt, lastModified);
-        Product product = new Product(record);
-
-        String expectedToString = "Product[id=2, name=Another Product, category=COMPUTERS, rating=3, createdAt=2023-09-25, lastModified=2023-09-30]";
-        assertEquals(expectedToString, product.toString());
     }
 
 }

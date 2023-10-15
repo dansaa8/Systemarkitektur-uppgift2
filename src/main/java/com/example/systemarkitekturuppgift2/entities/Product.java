@@ -1,6 +1,8 @@
 package com.example.systemarkitekturuppgift2.entities;
 
 import java.time.LocalDate;
+
+import com.example.systemarkitekturuppgift2.constraint.CategoryConstraint;
 import jakarta.validation.constraints.*;
 import java.util.*;
 
@@ -9,11 +11,10 @@ public final class Product {
     @Min(value = 0, message = "Id should not be less than 0")
     private final int id;
 
-    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name can't be null or empty")
     private String name;
 
-
-    @NotNull
+    @CategoryConstraint
     private Category category;
 
     @Min(value = 0, message = "Rating must not be lower than 0")
