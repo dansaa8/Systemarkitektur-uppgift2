@@ -28,7 +28,7 @@ public class CategoryValidator implements ConstraintValidator<ValidCategory, Cat
         }
 
         boolean isValid = Stream.of(Category.values())
-                .anyMatch(validCategory -> validCategory == value);
+                .anyMatch(validCategory -> validCategory.equals(value));
 
         if (!isValid) {
             String allowedCategories = Stream.of(Category.values())
@@ -42,5 +42,6 @@ public class CategoryValidator implements ConstraintValidator<ValidCategory, Cat
 
         return isValid;
     }
+
 
 }
