@@ -32,7 +32,7 @@ public class WarehouseBusinessService implements WarehouseService {
 
     public WarehouseBusinessService() {
         this.products = new ArrayList<>();
-//        MockDataGenerator.renderProducts(products);
+        MockDataGenerator.renderProducts(products);
     }
 
     @Produces
