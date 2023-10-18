@@ -12,7 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,23 +30,23 @@ class ProductResourceTest {
     @BeforeEach
     public void setup() {
         dispatcher = MockDispatcherFactory.createDispatcher();
-        dispatcher.getRegistry().addPerRequestResource(ProductResource.class); // klassen som ska testas.
-        dispatcher.getProviderFactory().registerProviderInstance(warehouseService);
-
+        var productResource = new ProductResource(warehouseService);
+        dispatcher.getRegistry().addSingletonResource(productResource);
+        // Create your custom ExceptionMapper
         ExceptionMapper<MyException> mapper = new MyExceptionMapper();
+        // Register your custom ExceptionMapper
         dispatcher.getProviderFactory().registerProviderInstance(mapper);
     }
 
     @Test
     public void productsReturnsAllProductsWithStatus200() throws Exception {
-        //create a mock request and response
-        MockHttpRequest request = MockHttpRequest.get("/warehouse/products");
+        Mockito.when(warehouseService.getAllProducts()).thenReturn(Collections.EMPTY_LIST);
+        MockHttpRequest request = MockHttpRequest.get("/products");
         MockHttpResponse response = new MockHttpResponse();
 
         dispatcher.invoke(request, response);
 
         assertEquals(200, response.getStatus());
         assertEquals("[]", response.getContentAsString());
-
     }
 }
