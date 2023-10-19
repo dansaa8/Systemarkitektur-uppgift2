@@ -11,6 +11,23 @@ import java.util.Map;
 import java.util.Optional;
 
 public class WarehouseTestService implements WarehouseService {
+
+    private final List<Product> products;
+
+    public WarehouseTestService() {
+        this.products = List.of(
+                new Product(1, "Laptop",
+                        Category.COMPUTERS, 8,
+                        LocalDate.of(2023, 1, 24),
+                        LocalDate.of(2023, 2, 7)),
+                new Product(2, "Desktop",
+                        Category.COMPUTERS, 1,
+                        LocalDate.of(2023, 6, 5),
+                        LocalDate.of(2023, 6, 16)
+                )
+        );
+    }
+
     @Override
     public boolean addProduct(ProductRecord p) {
         return false;
