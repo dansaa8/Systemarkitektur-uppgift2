@@ -1,4 +1,4 @@
-package com.example.systemarkitekturuppgift2;
+package com.example.systemarkitekturuppgift2.exception;
 
 import jakarta.ws.rs.WebApplicationException;
 

@@ -1,6 +1,6 @@
 package com.example.systemarkitekturuppgift2.resource;
 
-import com.example.systemarkitekturuppgift2.ConstraintViolationExceptionMapper;
+import com.example.systemarkitekturuppgift2.exception.ConstraintViolationExceptionMapper;
 import com.example.systemarkitekturuppgift2.JacksonConfig;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;

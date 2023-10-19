@@ -1,4 +1,4 @@
-package com.example.systemarkitekturuppgift2;
+package com.example.systemarkitekturuppgift2.exception;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

@@ -1,4 +1,4 @@
-package com.example.systemarkitekturuppgift2;
+package com.example.systemarkitekturuppgift2.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,24 +13,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Provider
-public class ProductNotFoundExceptionMapper implements ExceptionMapper<ProductNotFoundException> {
-    private static final Logger logger = LoggerFactory.getLogger(ProductNotFoundException.class);
+public class ProductConflictExceptionMapper implements ExceptionMapper<ProductConflictException> {
+    private static final Logger logger = LoggerFactory.getLogger(ProductConflictException.class);
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public Response toResponse(ProductNotFoundException exception) {
+    public Response toResponse(ProductConflictException exception) {
         logger.error(exception.getMessage());
 
         Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("ProductNotFoundException error", exception.getMessage());
+        errorResponse.put("ProductConflictException error", exception.getMessage());
 
         try {
             String json = objectMapper.writeValueAsString(errorResponse);
 
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(json)
-                    .type(MediaType.APPLICATION_JSON) // Set the response media type to JSON
-                    .build();
+        return Response.status(Response.Status.CONFLICT)
+                .entity(json)
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .build();
         } catch (JsonProcessingException e) {
             logger.error("Error while creating JSON response", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

@@ -1,8 +1,8 @@
 package com.example.systemarkitekturuppgift2.resource;
 
 import com.example.systemarkitekturuppgift2.Log;
-import com.example.systemarkitekturuppgift2.ProductConflictException;
-import com.example.systemarkitekturuppgift2.ProductNotFoundException;
+import com.example.systemarkitekturuppgift2.exception.ProductConflictException;
+import com.example.systemarkitekturuppgift2.exception.ProductNotFoundException;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
