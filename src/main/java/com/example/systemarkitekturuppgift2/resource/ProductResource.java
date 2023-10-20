@@ -68,9 +68,11 @@ public class ProductResource {
     public Response getProductById(@PathParam("id") int id) {
         Optional product = wh.getProduct(id);
         if (product.isPresent())
-            return Response.ok(product.get()).build();
+            return Response.status(Response.Status.OK)
+                    .entity(product.get())
+                    .build();
 
-        throw new ProductNotFoundException("Product with id " + id + " could not be found");
+        throw new ProductNotFoundException("", id);
     }
 }
 

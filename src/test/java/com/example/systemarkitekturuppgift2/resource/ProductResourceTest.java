@@ -24,6 +24,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -138,5 +139,38 @@ class ProductResourceTest {
                 res.getContentAsString(), JSONCompareMode.LENIENT);
     }
 
+    @Test
+    public void getProductWithIdReturnGoodValuesIfItExist() throws Exception {
+        Mockito.when(warehouseService.getProduct(1)).thenReturn(Optional.of(getSingleProduct()));
+        MockHttpRequest req = MockHttpRequest.get("/products/1");
+        MockHttpResponse res = new MockHttpResponse();
 
+        dispatcher.invoke(req, res);
+
+        System.out.println(res.getContentAsString());
+
+        assertEquals(200, res.getStatus());
+        JSONAssert.assertEquals(
+                "{\"id\":1,\"name\":\"P1\"," +
+                        "\"category\":\"COMPUTERS\",\"rating\":1," +
+                        "\"createdAt\":\"2021-01-01\",\"lastModified\":\"2021-01-01\"}",
+                res.getContentAsString(), JSONCompareMode.LENIENT);
+    }
+
+    @Test
+    public void getProductWithIdReturnBadValuesIfItDoesNotExist() throws Exception {
+        int targetId = 1;
+        Mockito.when(warehouseService.getProduct(targetId)).thenReturn(Optional.empty());
+        MockHttpRequest req = MockHttpRequest.get("/products/1");
+        MockHttpResponse res = new MockHttpResponse();
+
+        dispatcher.invoke(req, res);
+
+        System.out.println(res.getContentAsString());
+
+        assertEquals(404, res.getStatus());
+        JSONAssert.assertEquals("{\"ProductNotFoundException error\":" +
+                        "\"Product with id " + targetId + " could not be found\"}",
+                res.getContentAsString(), JSONCompareMode.LENIENT);
+    }
 }
