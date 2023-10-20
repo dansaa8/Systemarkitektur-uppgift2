@@ -1,9 +1,9 @@
 package com.example.systemarkitekturuppgift2.resource;
 
-import com.example.systemarkitekturuppgift2.exception.ConstraintViolationExceptionMapper;
 import com.example.systemarkitekturuppgift2.JacksonConfig;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
+import com.example.systemarkitekturuppgift2.exception.*;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolationException;
@@ -42,8 +42,13 @@ class ProductResourceTest {
         dispatcher.getRegistry().addSingletonResource(productResource);
         // Create your custom ExceptionMapper
         ExceptionMapper <ConstraintViolationException> mapper = new ConstraintViolationExceptionMapper();
+        ExceptionMapper <ProductNotFoundException> pNotFoundMapper = new ProductNotFoundExceptionMapper();
+        ExceptionMapper <ProductConflictException> pConflictMapper = new ProductConflictExceptionMapper();
         // Register your custom ExceptionMapper
         dispatcher.getProviderFactory().registerProviderInstance(mapper);
+        dispatcher.getProviderFactory().registerProviderInstance(pNotFoundMapper);
+        dispatcher.getProviderFactory().registerProviderInstance(pConflictMapper);
+
         dispatcher.getProviderFactory().registerProvider(JacksonConfig.class);
     }
 
@@ -87,7 +92,7 @@ class ProductResourceTest {
     public void addProductReturnsOkMessageWithStatus201() throws Exception {
         ProductRecord p = getSingleProduct();
         Mockito.when(warehouseService.addProduct(p)).thenReturn(true);
-        MockHttpRequest req = MockHttpRequest.post("/products/1");
+        MockHttpRequest req = MockHttpRequest.post("/products");
         req.contentType("application/json");
 
         String jsonPayload = "{" +
@@ -95,8 +100,8 @@ class ProductResourceTest {
                 "\"name\": \"P1\", " +
                 "\"category\": \"COMPUTERS\", " +
                 "\"rating\": 1, " +
-                "\"createdAt\": \"2021-1-1\", " +
-                "\"lastModified\": \"2021-1-1\"}\n";
+                "\"createdAt\": \"2021-01-01\", " +
+                "\"lastModified\": \"2021-01-01\"}\n";
 
         req.content(jsonPayload.getBytes("UTF-8"));
 
@@ -106,7 +111,15 @@ class ProductResourceTest {
 
         System.out.println(res.getContentAsString());
 
-//        assertEquals(201, res.getStatus());
-        assertEquals("hi", res.getContentAsString());
+        assertEquals(201, res.getStatus());
+        JSONAssert.assertEquals("{\"message\":\"Product added successfully\"," +
+                        "\"product\":\"ProductRecord[id=1, name=P1, category=COMPUTERS, rating=1, " +
+                        "createdAt=2021-01-01, lastModified=2021-01-01]\"}",
+                res.getContentAsString(), JSONCompareMode.LENIENT);
     }
+
+//    @Test
+//    public addProductThrowProductConflictException() throws Exception {
+//
+//    }
 }

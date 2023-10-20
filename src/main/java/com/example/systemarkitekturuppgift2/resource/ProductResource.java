@@ -1,11 +1,12 @@
 package com.example.systemarkitekturuppgift2.resource;
 
 import com.example.systemarkitekturuppgift2.Log;
-import com.example.systemarkitekturuppgift2.exception.ProductConflictException;
-import com.example.systemarkitekturuppgift2.exception.ProductNotFoundException;
 import com.example.systemarkitekturuppgift2.entities.Category;
 import com.example.systemarkitekturuppgift2.entities.ProductRecord;
+import com.example.systemarkitekturuppgift2.exception.ProductConflictException;
+import com.example.systemarkitekturuppgift2.exception.ProductNotFoundException;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
+import com.example.systemarkitekturuppgift2.util.ResponseBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Inject;
@@ -42,12 +43,12 @@ public class ProductResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("")
-    public ResponseData uploadProduct(@Valid ProductRecord p) {
+    public Response uploadProduct(@Valid ProductRecord p) {
         boolean isAdded = wh.addProduct(p);
         if (!isAdded) {
             throw new ProductConflictException("Product with id and/or name already exists");
         }
-        return new ResponseData("Product added successfully");
+        return ResponseBuilder.ProductAdded(p);
     }
 
     @GET
