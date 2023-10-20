@@ -6,7 +6,7 @@ import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.exception.ProductConflictException;
 import com.example.systemarkitekturuppgift2.exception.ProductNotFoundException;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
-import com.example.systemarkitekturuppgift2.util.ResponseBuilder;
+import com.example.systemarkitekturuppgift2.util.CustomResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Inject;
@@ -48,7 +48,7 @@ public class ProductResource {
         if (!isAdded) {
             throw new ProductConflictException("Product with id and/or name already exists");
         }
-        return ResponseBuilder.ProductAdded(p);
+        return CustomResponse.addProductResponse(p);
     }
 
     @GET
@@ -68,9 +68,7 @@ public class ProductResource {
     public Response getProductById(@PathParam("id") int id) {
         Optional product = wh.getProduct(id);
         if (product.isPresent())
-            return Response.status(Response.Status.OK)
-                    .entity(product.get())
-                    .build();
+            return CustomResponse.getProductResponse(product);
 
         throw new ProductNotFoundException("", id);
     }
