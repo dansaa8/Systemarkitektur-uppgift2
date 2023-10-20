@@ -6,6 +6,7 @@ import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import com.example.systemarkitekturuppgift2.exception.*;
 import com.example.systemarkitekturuppgift2.service.WarehouseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
@@ -50,6 +51,7 @@ class ProductResourceTest {
         dispatcher.getProviderFactory().registerProviderInstance(pConflictMapper);
 
         dispatcher.getProviderFactory().registerProvider(JacksonConfig.class);
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     private List<ProductRecord> mockedProductList() {
@@ -95,14 +97,7 @@ class ProductResourceTest {
         MockHttpRequest req = MockHttpRequest.post("/products");
         req.contentType("application/json");
 
-        String jsonPayload = "{" +
-                "\"id\": 1, " +
-                "\"name\": \"P1\", " +
-                "\"category\": \"COMPUTERS\", " +
-                "\"rating\": 1, " +
-                "\"createdAt\": \"2021-01-01\", " +
-                "\"lastModified\": \"2021-01-01\"}\n";
-
+        String jsonPayload = objectMapper.writeValueAsString(p);
         req.content(jsonPayload.getBytes("UTF-8"));
 
         MockHttpResponse res = new MockHttpResponse();
@@ -113,13 +108,35 @@ class ProductResourceTest {
 
         assertEquals(201, res.getStatus());
         JSONAssert.assertEquals("{\"message\":\"Product added successfully\"," +
-                        "\"product\":\"ProductRecord[id=1, name=P1, category=COMPUTERS, rating=1, " +
+                        "\"product\":\"ProductRecord[id=1, " +
+                        "name=P1, " +
+                        "category=COMPUTERS, " +
+                        "rating=1, " +
                         "createdAt=2021-01-01, lastModified=2021-01-01]\"}",
                 res.getContentAsString(), JSONCompareMode.LENIENT);
     }
 
-//    @Test
-//    public addProductThrowProductConflictException() throws Exception {
-//
-//    }
+    @Test
+    public void addProductAlreadyExistingThrowProductConflictException() throws Exception {
+        ProductRecord p = getSingleProduct();
+        Mockito.when(warehouseService.addProduct(p)).thenReturn(false);
+        MockHttpRequest req = MockHttpRequest.post("/products");
+        req.contentType("application/json");
+
+        String jsonPayload = objectMapper.writeValueAsString(p);
+        req.content(jsonPayload.getBytes("UTF-8"));
+
+        MockHttpResponse res = new MockHttpResponse();
+
+        dispatcher.invoke(req, res);
+
+        System.out.println(res.getContentAsString());
+
+        assertEquals(409, res.getStatus());
+        JSONAssert.assertEquals(
+                "{\"ProductConflictException error\":\"Product with id and/or name already exists\"}",
+                res.getContentAsString(), JSONCompareMode.LENIENT);
+    }
+
+
 }
