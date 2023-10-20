@@ -48,7 +48,7 @@ public class ProductResource {
         if (!isAdded) {
             throw new ProductConflictException("Product with id and/or name already exists");
         }
-        return CustomResponse.addProductResponse(p);
+        return CustomResponse.productAdded(p);
     }
 
     @GET
@@ -68,7 +68,7 @@ public class ProductResource {
     public Response getProductById(@PathParam("id") int id) {
         Optional product = wh.getProduct(id);
         if (product.isPresent())
-            return CustomResponse.getProductResponse(product);
+            return CustomResponse.productFound(product);
 
         throw new ProductNotFoundException("", id);
     }

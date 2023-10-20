@@ -11,7 +11,7 @@ import java.util.Optional;
 public final class CustomResponse {
     private CustomResponse() {}
 
-    public static Response addProductResponse(ProductRecord p) {
+    public static Response productAdded(ProductRecord p) {
         JsonObjectBuilder responseBuilder = Json.createObjectBuilder()
                 .add("message", "Product added successfully")
                 .add("product", p.toString());
@@ -22,7 +22,7 @@ public final class CustomResponse {
                 .build();
     }
 
-    public static Response getProductResponse(Optional p) {
+    public static Response productFound(Optional p) {
         return Response.status(Response.Status.OK)
                 .entity(p.get())
                 .build();
