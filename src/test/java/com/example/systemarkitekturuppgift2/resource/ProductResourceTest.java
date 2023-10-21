@@ -69,6 +69,8 @@ class ProductResourceTest {
                 LocalDate.of(2021, 1, 1));
     }
 
+
+
     @Test
     public void productsReturnsAllProductsWithStatus200() throws Exception {
 
@@ -139,6 +141,23 @@ class ProductResourceTest {
                 res.getContentAsString(), JSONCompareMode.LENIENT);
     }
 
+//    @Test
+//    public void addProductWithConstraintViolationsReturnListOfViolations() throws Exception {
+//        ProductRecord badProduct = new ProductRecord(
+//                -1, "", null, 11, null, null);
+//        Mockito.when(warehouseService.addProduct(badProduct)).thenReturn(false);
+//        MockHttpRequest req = MockHttpRequest.post("/products");
+//        req.contentType("application/json");
+//
+//        String jsonPayload = objectMapper.writeValueAsString(badProduct);
+//        req.content(jsonPayload.getBytes("UTF-8"));
+//
+//        MockHttpResponse res = new MockHttpResponse();
+//        dispatcher.invoke(req, res);
+//
+//        assertEquals(400, res.getStatus());
+//    }
+
     @Test
     public void getProductWithIdReturnGoodValuesIfItExist() throws Exception {
         Mockito.when(warehouseService.getProduct(1)).thenReturn(Optional.of(getSingleProduct()));
@@ -173,4 +192,5 @@ class ProductResourceTest {
                         "\"Product with id " + targetId + " could not be found\"}",
                 res.getContentAsString(), JSONCompareMode.LENIENT);
     }
+
 }

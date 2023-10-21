@@ -8,22 +8,6 @@ import java.util.List;
 public final class ProductValidator {
     private ProductValidator() {}
 
-    public static boolean isValid(ProductRecord p) {
-        if (p == null) return false;
-
-        return isInRange(p.rating()) &&
-                !isNullOrEmpty(p.name()) &&
-                p.id() >= 0;
-    }
-    private static boolean isInRange(int rating) {
-        return rating >= 0 && rating <= 10;
-    }
-
-    private static boolean isNullOrEmpty(String string) {
-        return string == null || string.isEmpty();
-    }
-
-
     public static boolean alreadyExists(List<Product> pList, ProductRecord p) {
         return nameExists(pList, p) ||
                 idExists(pList, p);

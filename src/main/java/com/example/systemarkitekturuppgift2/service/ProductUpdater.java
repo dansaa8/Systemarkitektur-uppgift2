@@ -7,13 +7,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.example.systemarkitekturuppgift2.util.ProductValidator.alreadyExists;
-import static com.example.systemarkitekturuppgift2.util.ProductValidator.isValid;
 
 public class ProductUpdater {
 
     static boolean updateProduct(List<Product> pList, ProductRecord p) {
-        if (!isValid(p))
-            return false;
 
         var foundProduct = pList.stream()
                 .filter(product -> product.getId() == p.id())
@@ -34,7 +31,7 @@ public class ProductUpdater {
     }
 
     static boolean insertIntoList(List<Product> pList, ProductRecord p) {
-        if (isValid(p) && !alreadyExists(pList, p)) {
+        if (!alreadyExists(pList, p)) {
             pList.add(new Product(p));
             return true;
         }
