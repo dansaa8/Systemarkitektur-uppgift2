@@ -107,8 +107,6 @@ class ProductResourceTest {
 
         dispatcher.invoke(req, res);
 
-        System.out.println(res.getContentAsString());
-
         assertEquals(201, res.getStatus());
         JSONAssert.assertEquals("{\"message\":\"Product added successfully\"," +
                         "\"product\":\"ProductRecord[id=1, " +
@@ -132,8 +130,6 @@ class ProductResourceTest {
         MockHttpResponse res = new MockHttpResponse();
 
         dispatcher.invoke(req, res);
-
-        System.out.println(res.getContentAsString());
 
         assertEquals(409, res.getStatus());
         JSONAssert.assertEquals(
@@ -166,8 +162,6 @@ class ProductResourceTest {
 
         dispatcher.invoke(req, res);
 
-        System.out.println(res.getContentAsString());
-
         assertEquals(200, res.getStatus());
         JSONAssert.assertEquals(
                 "{\"id\":1,\"name\":\"P1\"," +
@@ -184,8 +178,6 @@ class ProductResourceTest {
         MockHttpResponse res = new MockHttpResponse();
 
         dispatcher.invoke(req, res);
-
-        System.out.println(res.getContentAsString());
 
         assertEquals(404, res.getStatus());
         JSONAssert.assertEquals("{\"ProductNotFoundException error\":" +
