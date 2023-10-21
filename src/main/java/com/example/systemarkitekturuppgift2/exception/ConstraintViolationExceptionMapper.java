@@ -2,52 +2,33 @@ package com.example.systemarkitekturuppgift2.exception;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @Provider
 public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
 
-    @Context
-    UriInfo uriInfo;
-
     @Override
     public Response toResponse(final ConstraintViolationException exception) {
+        return Response.status(Response.Status.BAD_REQUEST)
+                .entity(prepareMessage(exception))
+                .type("application/json")
+                .build();
+    }
 
-        Set<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
-
-        final var jsonObject = Json.createObjectBuilder()
-                .add("host",uriInfo.getAbsolutePath().getHost())
-                .add("resource", uriInfo.getAbsolutePath().getPath())
-                .add("title", "Validation Errors");
-
-
-        final var jsonArray = Json.createArrayBuilder();
-
-        for (final var constraint : constraintViolations) {
-
-            String className = constraint.getLeafBean().toString().split("@")[0];
-            String message = constraint.getMessage();
-            String propertyPath = constraint.getPropertyPath().toString().split("\\.")[2];
-
-            JsonObject jsonError = Json.createObjectBuilder()
-                    .add("class", className)
-                    .add("field", propertyPath)
-                    .add("violationMessage", message)
-                    .build();
-            jsonArray.add(jsonError);
-
-        }
-
-        JsonObject errorJsonEntity = jsonObject.add("errors", jsonArray.build()).build();
-
-        return Response.status(Response.Status.BAD_REQUEST).entity(errorJsonEntity).build();
+    private Map<String, List<String>> prepareMessage(ConstraintViolationException exception) {
+        Map<String, List<String>> result = new HashMap<>();
+        List<String> violations = exception.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
+        result.put("ConstraintViolations", violations);
+        return result;
     }
 }
