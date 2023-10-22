@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.example.systemarkitekturuppgift2.service.ProductUpdater.insertIntoList;
+import static com.example.systemarkitekturuppgift2.service.ProductAdder.insertIntoList;
 import static com.example.systemarkitekturuppgift2.service.ProductUpdater.updateProduct;
 import static jakarta.ejb.ConcurrencyManagementType.BEAN;
 import static jakarta.ejb.LockType.READ;

@@ -6,11 +6,10 @@ import com.example.systemarkitekturuppgift2.entities.ProductRecord;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.example.systemarkitekturuppgift2.util.ProductValidator.alreadyExists;
+public final class ProductUpdater {
+    private ProductUpdater() {}
 
-public class ProductUpdater {
-
-    static boolean updateProduct(List<Product> pList, ProductRecord p) {
+    public static boolean updateProduct(List<Product> pList, ProductRecord p) {
 
         var foundProduct = pList.stream()
                 .filter(product -> product.getId() == p.id())
@@ -28,13 +27,5 @@ public class ProductUpdater {
         oldProd.setCategory(updatedProd.category());
         oldProd.setRating(updatedProd.rating());
         oldProd.setLastModified(LocalDate.now());
-    }
-
-    static boolean insertIntoList(List<Product> pList, ProductRecord p) {
-        if (!alreadyExists(pList, p)) {
-            pList.add(new Product(p));
-            return true;
-        }
-        return false;
     }
 }
