@@ -19,6 +19,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Clear Docker Buildx Cache
+        run: docker builder prune -a
+      -
+        name: Enable Docker Debug
+        run: |
+          echo ::set-env name=DOCKER_BUILDKIT::1
+          echo ::set-env name=BUILDKIT_PROGRESS::plain
+      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
