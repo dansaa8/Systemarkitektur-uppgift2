@@ -1,5 +1,3 @@
-FROM eclipe-temurin:21
-LABEL authors="D"
-COPY target/classes/ /app/
-
-ENTRYPOINT ["top", "-b"]
+FROM bitnami/wildfly:29.0.1
+ENV WILDFLY_USERNAME=user, WILDFLY_PASSWORD=password
+COPY target/warehouse-webserver-1.0-SNAPSHOT.war /app
