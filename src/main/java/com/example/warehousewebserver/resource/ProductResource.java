@@ -73,4 +73,3 @@ public class ProductResource {
         throw new ProductNotFoundException("", id);
     }
 }
-
